@@ -1,7 +1,7 @@
 package com.eunbi.demo.service.posts;
 
 import com.eunbi.demo.domain.posts.PostsRepository;
-import com.eunbi.demo.web.dto.PostsSaveRequestDto;
+import com.eunbi.demo.web.dto.PostsSaveRequestsDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +13,7 @@ public class PostsService {
     private final PostsRepository postsRepository;
 
     @Transactional
-    public long save(PostsSaveRequestDto requestDto) {
+    public long save(PostsSaveRequestsDto requestDto) {
         return postsRepository.save(requestDto.toEntity()).getId();
     }
 }

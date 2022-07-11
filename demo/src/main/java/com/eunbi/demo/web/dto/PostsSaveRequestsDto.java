@@ -10,13 +10,13 @@ import lombok.NoArgsConstructor;
 // Entity 클래스를 req, res 클래스로 사용해서는 안된다
 @Getter
 @NoArgsConstructor
-public class PostsSaveRequestDto {
+public class PostsSaveRequestsDto {
     private String title;
     private String content;
     private String author;
 
     @Builder
-    public PostsSaveRequestDto(String title, String content, String author) {
+    public PostsSaveRequestsDto(String title, String content, String author) {
         this.title = title;
         this.content = content;
         this.author = author;

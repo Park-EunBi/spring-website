@@ -2,7 +2,7 @@ package com.eunbi.demo.web;
 
 import com.eunbi.demo.domain.posts.Posts;
 import com.eunbi.demo.domain.posts.PostsRepository;
-import com.eunbi.demo.web.dto.PostsSaveRequestDto;
+import com.eunbi.demo.web.dto.PostsSaveRequestsDto;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,9 +16,6 @@ import org.springframework.http.ResponseEntity;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
-import java.util.concurrent.locks.ReentrantLock;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 // api/v1/posts 로 보낸 body 값이 잘 들어가는지 테스트
 @ExtendWith(MockitoExtension.class)
@@ -45,7 +42,7 @@ public class PostsApiControllerTest {
         // builder 를 통해 값을 set 한다
         String title = "title";
         String content = "content";
-        PostsSaveRequestDto requestDto = PostsSaveRequestDto.builder()
+        PostsSaveRequestsDto requestDto = PostsSaveRequestsDto.builder()
                 .title(title)
                 .content(content)
                 .author("author")
