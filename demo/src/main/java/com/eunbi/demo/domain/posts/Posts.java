@@ -38,4 +38,10 @@ public class Posts {
         this.content = content;
         this.author = author;
     }
+
+    // update 추가
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }
