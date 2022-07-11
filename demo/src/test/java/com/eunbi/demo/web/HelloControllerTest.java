@@ -1,18 +1,15 @@
 package com.eunbi.demo.web;
 
-import org.assertj.core.api.Condition;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.platform.engine.TestExecutionResult;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+
+import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 // spring boot test 와 junit 사이의 연결자 역할
 @ExtendWith(MockitoExtension.class)
@@ -34,5 +31,23 @@ public class HelloControllerTest {
         mvc.perform(get("/hello"))
                 .andExpect(status().isOk()) // http의 status 를 검증 - isOK() == 200 인지 확인
                 .andExpect(content().string(hello)); // 응답 본문의 내용을 검증
+    }
+
+    @Test
+    public void helloDto가_리턴된다() throws Exception{
+        String name = "hello";
+        int amount = 1000;
+
+        mvc.perform(
+                get("/hello/dto")
+                        // API test에서 사용될 요청 파라미터를 설정
+                        // String 만 가능
+                        .param("name", name)
+                        .param("amount", String.valueOf(amount)))
+                .andExpect(status().isOk())
+                // jsonPath : json 응답값을 필드별로 검증
+                // $ 기준으로 필드명 명시
+                .andExpect(jsonPath("$.name", is(name)))
+                .andExpect(jsonPath("$.amount", is(amount)));
     }
 }
