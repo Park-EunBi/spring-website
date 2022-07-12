@@ -1,5 +1,6 @@
 package com.eunbi.demo.domain.posts;
 
+import com.eunbi.demo.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ import javax.persistence.*;
 @Entity
 // Posts 클래스는 실제 DB 와 매칭될 클래스 - 보통 Entity class 라고 불림
 // JPA 를 사용할 경우 실제 쿼리를 날리기 보단, Entity class 의 수정으로 작업
-public class Posts {
+public class Posts extends BaseTimeEntity {
     @Id // 해당 테이블의 PK
     // PK 생성규칙 - GenerationType.IDENTITY == auto_increase
     @GeneratedValue(strategy = GenerationType.IDENTITY)
