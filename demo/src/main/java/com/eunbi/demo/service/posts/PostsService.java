@@ -49,4 +49,13 @@ public class PostsService {
                 // .map(posts -> nw PostListResponseDto(posts)) 을 람다식으로 변형
                 .collect(Collectors.toList());
     }
+
+    @Transactional
+    public void delete(Long id) {
+        Posts posts = postsRepository.findById(id)
+                .orElseThrow(()-> new IllegalArgumentException("해당 게시글이 없습니다. id=" +id));
+
+        // JPA 에서 delete 지원, 바로 사용 가능
+        postsRepository.delete(posts);
+    }
 }
