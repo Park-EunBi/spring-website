@@ -5,6 +5,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
+import org.springframework.security.access.SecurityConfig;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.is;
@@ -14,7 +19,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 // spring boot test 와 junit 사이의 연결자 역할
 @ExtendWith(MockitoExtension.class)
 // web에 집중할 수 있는 테스트 어노테이션
-@WebMvcTest(controllers = HelloController.class)
+// 에러 해결 -> 스캔 대상에서 securityconfig 제거
+@WebMvcTest(controllers = HelloController.class,
+        excludeFilters = {
+                @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SecurityConfig.class)
+        }
+)
 public class HelloControllerTest {
     // spring이 관리하는 bean 주입
     @Autowired
@@ -23,6 +33,8 @@ public class HelloControllerTest {
     // 이 클래스로 http get, post 등 api test 가능
     private MockMvc mvc;
 
+    // 가짜로 인증된 사용자 생성
+    @WithMockUser(roles="USER")
     @Test
     public void hello가_리턴된다() throws Exception{
         String hello = "hello";
@@ -33,6 +45,8 @@ public class HelloControllerTest {
                 .andExpect(content().string(hello)); // 응답 본문의 내용을 검증
     }
 
+    // 가짜로 인증된 사용자 생성
+    @WithMockUser(roles="USER")
     @Test
     public void helloDto가_리턴된다() throws Exception{
         String name = "hello";

@@ -7,7 +7,6 @@ import lombok.Getter;
 import org.w3c.dom.Attr;
 
 import java.util.Map;
-
 @Getter
 public class OAuthAttributes {
     private Map<String, Object> attributes;
@@ -26,11 +25,12 @@ public class OAuthAttributes {
     }
 
     // OAuth2User 에서 반환하는 사용자 정보는 Map 이기에 값 하나하나를 반환해야 한다
-    public static OAuthAttributes of(String registrationId, String userNameAttributeName, Map<String, Object> attributes){
+    public static OAuthAttributes of(String registrationId, String userNameAttributeName, Map<String, Object> attributes) {
         // naver 로그인 추가
-        if ("naver".equals(registrationId)) {
+        if("naver".equals(registrationId)) {
             return ofNaver("id", attributes);
         }
+
         return ofGoogle(userNameAttributeName, attributes);
     }
 
@@ -50,7 +50,7 @@ public class OAuthAttributes {
         return OAuthAttributes.builder()
                 .name((String) response.get("name"))
                 .email((String) response.get("email"))
-                .picture((String) response.get("picture"))
+                .picture((String) response.get("profile_image"))
                 .attributes(response)
                 .nameAttributeKey(userNameAttributeName)
                 .build();

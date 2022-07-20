@@ -25,7 +25,6 @@ public class LoginUserArgumentResolver implements HandlerMethodArgumentResolver 
         boolean isUserClass = SessionUser.class.equals(parameter.getParameterType());
         return isLoginUserAnnotation && isUserClass;
     }
-
     @Override
     // 파라미터에 전달할 객체를 생성 (아래 코드는 세션에서 객체를 가져옴)
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
